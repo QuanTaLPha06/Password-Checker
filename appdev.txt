@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ace2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .box {
+            background-color: #f1c40f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label,
+        input {
+            display: block;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #000;
+            border-radius: 5px;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .emoji {
+            text-align: center;
+            font-size: 30px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>🔐 Password Checker</h2>
+        <label for="password">Enter your password:</label>
+        <input type="password" id="password" placeholder="Type password here...">
+        <div class="result" id="strength">Strength: —</div>
+        <div class="emoji" id="emoji">🤔</div>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const strengthOutput = document.getElementById("strength");
+        const emojiOutput = document.getElementById("emoji");
+
+        passwordInput.addEventListener("input", function () {
+            const password = passwordInput.value;
+            let strength = "Weak";
+            let emoji = "👎";
+            const mediumPattern = /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
+            const strongPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (strongPattern.test(password)) {
+                strength = "Strong";
+                emoji = "💪";
+            } else if (mediumPattern.test(password)) {
+                strength = "Medium";
+                emoji = "✌️";
+            } else if (password.length === 0) {
+                strength = "—";
+                emoji = "🤔";
+            }
+
+            strengthOutput.textContent = "Strength: " + strength;
+            emojiOutput.textContent = emoji;
+        });
+    </script>
+
+</body>
+
+</html>
